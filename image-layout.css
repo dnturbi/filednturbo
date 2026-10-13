@@ -63,15 +63,148 @@
   display: none;
 }
 
+.pagination {
+  margin: 32px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pagination[hidden] {
+  display: none;
+}
+
+.pagination button {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 900;
+  transition: transform .2s, color .2s, background .2s, border-color .2s !important;
+}
+
+.pagination button:hover:not(:disabled),
+.pagination button.active {
+  transform: translateY(-2px);
+  border-color: var(--lime);
+  background: var(--lime);
+  color: #080c16;
+}
+
+.pagination button:disabled {
+  opacity: .3;
+  cursor: not-allowed;
+}
+
+.pagination .page-arrow {
+  font-size: 21px;
+}
+
+.page-dots {
+  width: 24px;
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .pagination {
+    gap: 5px;
+  }
+
+  .pagination button {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+  }
+}
+
 .modal-links {
   display: grid;
-  gap: 10px;
+  gap: 13px;
   margin-top: auto;
 }
 
 .modal-links .button {
   width: 100%;
   position: relative;
+}
+
+.download-group {
+  padding: 11px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #0b111d;
+}
+
+.download-group-title {
+  margin-bottom: 9px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.download-group-title img {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+}
+
+.download-group-title img[src*="logo-android"],
+.download-group-title img[src*="logo-ios"] {
+  filter: invert(1);
+}
+
+.download-group-title small {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 7px;
+  letter-spacing: .7px;
+}
+
+.download-group-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.download-group-buttons a {
+  min-height: 39px;
+  padding: 0 11px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-radius: 8px;
+  border: 1px solid #2b3850;
+  background: #182235;
+  color: #f4f7fb;
+  font-size: 8px;
+  font-weight: 900;
+  line-height: 1.25;
+  letter-spacing: .45px;
+  transition: background .2s, color .2s, transform .2s !important;
+}
+
+.download-group-buttons a:hover {
+  transform: translateY(-2px);
+  background: var(--lime);
+  color: #080c16;
+}
+
+.download-group-buttons svg {
+  width: 14px;
+  flex: none;
 }
 
 .platform-logo {
@@ -184,6 +317,94 @@
   @keyframes card-float-back {
     0%,100% { transform: translate(-55px,30px) rotate(-10deg); }
     50% { transform: translate(-55px,39px) rotate(-8deg); }
+  }
+}
+
+@media (max-width: 600px) {
+  .modal {
+    width: calc(100% - 20px);
+    max-height: calc(100dvh - 20px);
+    border-radius: 18px;
+  }
+
+  .modal-image {
+    height: 180px;
+    background: #080c16;
+  }
+
+  .modal-image img {
+    object-position: center 25%;
+  }
+
+  .modal-image > span {
+    left: 14px;
+    bottom: 13px;
+    padding: 7px 10px;
+  }
+
+  .modal-close {
+    right: 10px;
+    top: 10px;
+    background: #080c16e8;
+  }
+
+  .modal-body {
+    padding: 20px 14px 14px;
+  }
+
+  .modal-body .kicker {
+    margin-bottom: 10px;
+  }
+
+  .modal-body h2 {
+    margin-bottom: 10px;
+    font-size: 21px;
+    line-height: 1.2;
+  }
+
+  .modal-body .badges {
+    display: none !important;
+  }
+
+  .modal-body > #dialog-description {
+    margin: 8px 0 16px;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .modal-links {
+    gap: 9px;
+  }
+
+  .download-group {
+    padding: 10px;
+    border-color: #33415b;
+    background: #0a101b;
+  }
+
+  .download-group-title {
+    margin-bottom: 8px;
+    font-size: 9px;
+  }
+
+  .download-group-title small {
+    color: var(--lime);
+  }
+
+  .download-group-buttons {
+    gap: 6px;
+  }
+
+  .download-group-buttons a {
+    min-height: 42px;
+    padding: 0 10px;
+    border-color: #35435d;
+    font-size: 8px;
+  }
+
+  .download-group-buttons a:active {
+    background: var(--lime);
+    color: #080c16;
   }
 }
 
@@ -682,6 +903,36 @@
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 1px;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+@media (min-width: 701px) {
+  .collection .section-head {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    margin: 0 -14px 28px;
+    padding: 16px 14px;
+    border-bottom: 1px solid #263047cc;
+    background: #080c16e8;
+    box-shadow: 0 12px 28px #080c16cc;
+    backdrop-filter: blur(14px);
+  }
+
+  .collection .section-head .kicker {
+    margin-bottom: 8px;
+  }
+
+  .collection .section-head h2 {
+    font-size: 30px;
+  }
+
+  .collection .search-box {
+    height: 48px;
+  }
 }
 
 @media (max-width: 700px) {

@@ -5,8 +5,19 @@
     "image":"./assets/logo.svg",
     "position":"center",
     "category":"MIỄN PHÍ",
-    "description":"Bản MOD Map HOK dành cho Android.",
-    "link_android":"https://gtraffic.io/QF_30eT"
+    "description":"Bản MOD Map HOK mẫu có đầy đủ link Android, iOS và .3105.",
+    "links_android":[
+      {"label":"ANDROID — TẢI SKIN","url":"https://gtraffic.io/QF_30eT"},
+      {"label":"ANDROID — NÚT BẤM","url":"https://gtraffic.io/JnKUQ4K"}
+    ],
+    "links_ios":[
+      {"label":"IOS — TẢI SKIN","url":"https://gtraffic.io/4pnQKJt"},
+      {"label":"IOS — NÚT BẤM","url":"https://gtraffic.io/4Q0aTgV"}
+    ],
+    "links_3105":[
+      {"label":".3105 — TẢI SKIN","url":"https://gtraffic.io/S4JQKu7"},
+      {"label":".3105 — NÚT BẤM","url":"https://gtraffic.io/KErQ4Jr"}
+    ]
   },
   {
     "hero":"AZZEN'KA",
@@ -16,6 +27,10 @@
     "category":"MIỄN PHÍ",
     "description":"File MOD Azzen'Ka Elsa dành cho Android.",
     "links_android":[
+      {"label":"TẢI SKIN","url":"https://gtraffic.io/rI_j47Q"},
+      {"label":"LINK DỰ PHÒNG","url":"https://trafficso1.com/9X4L_Qj"}
+    ],
+    "links_ios":[
       {"label":"TẢI SKIN","url":"https://gtraffic.io/rI_j47Q"},
       {"label":"LINK DỰ PHÒNG","url":"https://trafficso1.com/9X4L_Qj"}
     ]

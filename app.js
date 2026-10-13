@@ -1,4 +1,4 @@
-document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="./image-layout.css?v=8">');
+document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="./image-layout.css?v=10">');
 document.querySelector('.notice')?.remove();
 requestAnimationFrame(() => document.body.classList.add('page-loaded'));
 
@@ -6,12 +6,11 @@ const grid = document.querySelector('#mod-grid');
 const dialog = document.querySelector('#download-dialog');
 const PAGE_SIZE = 12;
 let filteredMods = [];
-let visibleCount = PAGE_SIZE;
-const loadMoreButton = document.createElement('button');
-loadMoreButton.className = 'load-more';
-loadMoreButton.type = 'button';
-loadMoreButton.innerHTML = '<span>XEM THÊM</span><small></small><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
-grid.after(loadMoreButton);
+let currentPage = 1;
+const pagination = document.createElement('nav');
+pagination.className = 'pagination';
+pagination.setAttribute('aria-label', 'Phân trang danh sách MOD');
+grid.after(pagination);
 const appPromo = document.createElement('section');
 appPromo.className = 'app-promo reveal';
 appPromo.innerHTML = `
@@ -73,31 +72,41 @@ function getModTitle(mod) {
 }
 
 function renderDownloadLinks(mod) {
-  const links = [
-    { url: mod.link_android, label: 'TẢI ANDROID', icon: './assets/logo-android.svg' },
-    { url: mod.link_ios, label: 'TẢI IOS', icon: './assets/logo-ios.svg' },
-    { url: mod.link_3105, label: 'TẢI BẢN .3105', icon: './assets/logo-3105.svg' }
-  ].filter(item => item.url);
+  const makeLinks = (items, single, defaultLabel) => {
+    const links = Array.isArray(items) ? items.filter(item => item.url) : [];
+    if (single) links.unshift({ label: defaultLabel, url: single });
+    return links;
+  };
+  const groups = [
+    { name: 'ANDROID', icon: './assets/logo-android.svg', links: makeLinks(mod.links_android, mod.link_android, 'TẢI FILE') },
+    { name: 'IOS', icon: './assets/logo-ios.svg', links: makeLinks(mod.links_ios, mod.link_ios, 'TẢI FILE') },
+    { name: 'BẢN .3105', icon: './assets/logo-3105.svg', links: makeLinks(mod.links_3105, mod.link_3105, 'TẢI FILE') }
+  ].filter(group => group.links.length);
 
-  if (!links.length) {
+  if (!groups.length) {
     linkBox.innerHTML = '<button class="button coming-soon" type="button" disabled>SẮP RA MẮT</button>';
     return;
   }
 
-  linkBox.innerHTML = links.map(item => `
-    <a class="button primary" href="${item.url}" target="_blank" rel="noopener noreferrer">
-      <img class="platform-logo" src="${item.icon}" alt="">
-      ${item.label}
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/></svg>
-    </a>`).join('');
+  linkBox.innerHTML = groups.map(group => `
+    <section class="download-group">
+      <div class="download-group-title"><img src="${group.icon}" alt=""><span>${group.name}</span><small>${group.links.length} FILE</small></div>
+      <div class="download-group-buttons">
+        ${group.links.map(item => `
+          <a href="${item.url}" target="_blank" rel="noopener noreferrer">
+            <span>${item.label.replace(/^(ANDROID|IOS|\.3105)\s*[—-]\s*/i, '')}</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/></svg>
+          </a>`).join('')}
+      </div>
+    </section>`).join('');
 }
 
 function renderBadges(mod) {
   const badges = document.querySelector('.badges');
   const items = [
-    { visible: mod.link_android, label: 'ANDROID', icon: './assets/logo-android.svg' },
-    { visible: mod.link_ios, label: 'IOS', icon: './assets/logo-ios.svg' },
-    { visible: mod.link_3105, label: 'BẢN .3105', icon: './assets/logo-3105.svg' }
+    { visible: mod.link_android || mod.links_android?.length, label: 'ANDROID', icon: './assets/logo-android.svg' },
+    { visible: mod.link_ios || mod.links_ios?.length, label: 'IOS', icon: './assets/logo-ios.svg' },
+    { visible: mod.link_3105 || mod.links_3105?.length, label: 'BẢN .3105', icon: './assets/logo-3105.svg' }
   ].filter(item => item.visible);
 
   badges.innerHTML = items.map(item => `<span><img class="platform-logo" src="${item.icon}" alt="">${item.label}</span>`).join('');
@@ -132,38 +141,69 @@ async function loadMods() {
 
 function updateStats() {
   const values = document.querySelectorAll('.stats strong');
-  const linkTypes = ['link_android', 'link_ios', 'link_3105'];
-  const availableTypes = linkTypes.filter(type => mods.some(mod => mod[type])).length;
+  const availableTypes = [
+    mods.some(mod => mod.link_android || mod.links_android?.length),
+    mods.some(mod => mod.link_ios || mod.links_ios?.length),
+    mods.some(mod => mod.link_3105 || mod.links_3105?.length)
+  ].filter(Boolean).length;
 
   values[0].textContent = String(mods.length).padStart(2, '0');
   values[1].textContent = String(availableTypes).padStart(2, '0');
 }
 
 function renderCards() {
-  const items = filteredMods.slice(0, visibleCount);
+  const totalPages = Math.max(1, Math.ceil(filteredMods.length / PAGE_SIZE));
+  currentPage = Math.min(currentPage, totalPages);
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const items = filteredMods.slice(start, start + PAGE_SIZE);
   grid.replaceChildren();
   items.forEach((mod, index) => grid.append(createCard(mod, index)));
   observeReveals([...grid.querySelectorAll('.mod-card')]);
   document.querySelector('#search-count').textContent = `${filteredMods.length}/${mods.length}`;
   if (!filteredMods.length) grid.innerHTML = '<p class="load-error">Không tìm thấy MOD phù hợp.</p>';
 
-  const remaining = filteredMods.length - items.length;
-  loadMoreButton.hidden = remaining <= 0;
-  loadMoreButton.querySelector('small').textContent = remaining > 0 ? `+${Math.min(PAGE_SIZE, remaining)} MOD` : '';
+  renderPagination(totalPages);
+}
+
+function renderPagination(totalPages) {
+  if (totalPages <= 1) {
+    pagination.replaceChildren();
+    pagination.hidden = true;
+    return;
+  }
+
+  pagination.hidden = false;
+  const pageNumbers = [];
+  for (let page = 1; page <= totalPages; page += 1) {
+    if (page === 1 || page === totalPages || Math.abs(page - currentPage) <= 1) pageNumbers.push(page);
+  }
+
+  let previousPage = 0;
+  const parts = pageNumbers.map(page => {
+    const gap = previousPage && page - previousPage > 1 ? '<span class="page-dots">…</span>' : '';
+    previousPage = page;
+    return `${gap}<button type="button" data-page="${page}" class="${page === currentPage ? 'active' : ''}" ${page === currentPage ? 'aria-current="page"' : ''}>${page}</button>`;
+  }).join('');
+
+  pagination.innerHTML = `
+    <button type="button" class="page-arrow" data-page="${currentPage - 1}" ${currentPage === 1 ? 'disabled' : ''} aria-label="Trang trước">‹</button>
+    ${parts}
+    <button type="button" class="page-arrow" data-page="${currentPage + 1}" ${currentPage === totalPages ? 'disabled' : ''} aria-label="Trang sau">›</button>`;
 }
 
 document.querySelector('#mod-search').addEventListener('input', event => {
   const keyword = event.target.value.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   filteredMods = mods.filter(mod => `${mod.id} ${mod.hero || ''} ${mod.skin || ''} ${mod.title || ''} ${mod.category}`.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(keyword));
-  visibleCount = PAGE_SIZE;
+  currentPage = 1;
   renderCards();
 });
 
-loadMoreButton.addEventListener('click', () => {
-  visibleCount += PAGE_SIZE;
+pagination.addEventListener('click', event => {
+  const button = event.target.closest('[data-page]');
+  if (!button || button.disabled) return;
+  currentPage = Number(button.dataset.page);
   renderCards();
-  const firstNewCard = grid.children[visibleCount - PAGE_SIZE];
-  firstNewCard?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  document.querySelector('.section-head').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
 grid.addEventListener('click', event => {
