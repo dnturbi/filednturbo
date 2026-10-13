@@ -9,14 +9,17 @@
     "links_android":[
       {"label":"ANDROID — TẢI SKIN","url":"https://gtraffic.io/QF_30eT"},
       {"label":"ANDROID — NÚT BẤM","url":"https://gtraffic.io/JnKUQ4K"}
-    ],
-    "links_ios":[
-      {"label":"IOS — TẢI SKIN","url":"https://gtraffic.io/4pnQKJt"},
-      {"label":"IOS — NÚT BẤM","url":"https://gtraffic.io/4Q0aTgV"}
-    ],
-    "links_3105":[
-      {"label":".3105 — TẢI SKIN","url":"https://gtraffic.io/S4JQKu7"},
-      {"label":".3105 — NÚT BẤM","url":"https://gtraffic.io/KErQ4Jr"}
+    ]
+  },
+  {
+    "hero":"MAX",
+    "skin":"NATRA MA ĐỒNG NÁO HẢI",
+    "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3018007.jpg",
+    "position":"center",
+    "category":"MIỄN PHÍ",
+    "description":"File MOD MAX NATRA MA ĐỒNG NÁO HẢI dành cho Android.",
+    "links_android":[
+      {"label":"TẢI SKIN","url":"https://gtraffic.io/rgt45BQ"}
     ]
   },
   {
