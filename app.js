@@ -1,4 +1,4 @@
-document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="./image-layout.css?v=10">');
+﻿document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="./image-layout.css?v=17">');
 document.querySelector('.notice')?.remove();
 requestAnimationFrame(() => document.body.classList.add('page-loaded'));
 
@@ -7,6 +7,7 @@ const dialog = document.querySelector('#download-dialog');
 const PAGE_SIZE = 12;
 let filteredMods = [];
 let currentPage = 1;
+const initialPage = Math.max(1, Number(new URLSearchParams(location.search).get('page')) || 1);
 const pagination = document.createElement('nav');
 pagination.className = 'pagination';
 pagination.setAttribute('aria-label', 'Phân trang danh sách MOD');
@@ -48,8 +49,22 @@ const searchBox = document.createElement('div');
 searchBox.className = 'search-box';
 searchBox.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg><input id="mod-search" type="search" placeholder="Tìm tên MOD, mã hoặc thể loại..." autocomplete="off" aria-label="Tìm kiếm MOD"><span id="search-count"></span>`;
 document.querySelector('.section-head > p').replaceWith(searchBox);
+const filterTabs = document.createElement('div');
+filterTabs.className = 'filter-tabs';
+filterTabs.innerHTML = `
+  <button type="button" class="active" data-filter="skin">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 4 4 2 4-2 4 3-2 4v9H6v-9L4 7l4-3Z"/><path d="M9 4c.4 1.4 1.4 2 3 2s2.6-.6 3-2"/></svg><b>SKIN</b><span></span>
+  </button>
+  <button type="button" data-filter="button">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8h10a5 5 0 0 1 4.7 6.7l-1 3A2 2 0 0 1 17.4 19L15 17H9l-2.4 2a2 2 0 0 1-3.3-1.3l-1-3A5 5 0 0 1 7 8Z"/><path d="M7 12v4M5 14h4M16 13h.01M19 15h.01"/></svg><b>NÚT BẤM</b><span></span>
+  </button>
+  <button type="button" data-filter="map">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15M15 6v15"/></svg><b>MAP</b><span></span>
+  </button>`;
+document.querySelector('.section-head').append(filterTabs);
 let mods = [];
 let trigger;
+let activeFilter = 'skin';
 const revealObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
@@ -69,6 +84,34 @@ function observeReveals(elements) {
 function getModTitle(mod) {
   if (mod.hero && mod.skin) return `${mod.hero} — ${mod.skin}`;
   return mod.hero || mod.skin || mod.title || `MOD ${mod.id}`;
+}
+
+function getModTypes(mod) {
+  if (Array.isArray(mod.types)) return mod.types;
+  const title = `${mod.hero || ''} ${mod.skin || ''}`.toLowerCase();
+  const labels = [...(mod.links_android || []), ...(mod.links_ios || []), ...(mod.links_3105 || [])].map(item => item.label || '').join(' ').toLowerCase();
+  const types = title.includes('map') ? ['map'] : ['skin'];
+  if (labels.includes('nút bấm')) types.push('button');
+  return types;
+}
+
+function setPageUrl(page, mode = 'replace') {
+  const url = new URL(location.href);
+  if (page > 1) url.searchParams.set('page', page);
+  else url.searchParams.delete('page');
+  history[`${mode}State`]({ page }, '', url);
+}
+
+function applyFilters(syncUrl = true) {
+  const keyword = document.querySelector('#mod-search').value.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  filteredMods = mods.filter(mod => {
+    const matchesTab = getModTypes(mod).includes(activeFilter);
+    const text = `${mod.id} ${mod.hero || ''} ${mod.skin || ''} ${mod.title || ''} ${mod.category}`.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    return matchesTab && text.includes(keyword);
+  });
+  currentPage = 1;
+  if (syncUrl) setPageUrl(1);
+  renderCards();
 }
 
 function renderDownloadLinks(mod) {
@@ -117,7 +160,11 @@ function createCard(mod, index) {
   const title = getModTitle(mod);
   const card = document.createElement('article');
   card.className = 'mod-card';
-  card.innerHTML = `<div class="card-image"><img src="${mod.image}" alt="${title}" style="object-position:${mod.position || 'center'}" ${index > 2 ? 'loading="lazy"' : ''}><span class="number">${mod.id}</span><span class="category">${mod.category}</span></div><div class="card-body"><div><p>MOD #${mod.id}</p><h3>${title}</h3></div><button data-mod="${mod.id}" aria-label="Tải file ${title}"><svg viewBox="0 0 24 24"><path d="M12 4v12m0 0 5-5m-5 5-5-5M5 20h14"/></svg></button></div>`;
+  card.dataset.mod = mod.id;
+  card.tabIndex = 0;
+  card.setAttribute('role', 'button');
+  card.setAttribute('aria-label', `Xem và tải ${title}`);
+  card.innerHTML = `<div class="card-image"><img src="${mod.image}" alt="${title}" style="object-position:${mod.position || 'center'}" ${index > 2 ? 'loading="lazy"' : ''}><span class="number">${mod.id}</span><span class="category">${mod.category}</span></div><div class="card-body"><div><p>MOD #${mod.id}</p><h3>${title}</h3></div><button type="button" aria-label="Tải file ${title}" tabindex="-1"><svg viewBox="0 0 24 24"><path d="M12 4v12m0 0 5-5m-5 5-5-5M5 20h14"/></svg></button></div>`;
   return card;
 }
 
@@ -131,12 +178,20 @@ async function loadMods() {
       id: String(index + 1).padStart(3, '0')
     }));
     updateStats();
-    filteredMods = mods;
+    updateFilterCounts();
+    applyFilters(false);
+    currentPage = initialPage;
     renderCards();
   } catch (error) {
     console.error('Không thể tải mods.json:', error);
     grid.innerHTML = '<p class="load-error">Không thể tải danh sách MOD. Vui lòng thử lại sau.</p>';
   }
+}
+
+function updateFilterCounts() {
+  ['skin', 'button', 'map'].forEach(type => {
+    filterTabs.querySelector(`[data-filter="${type}"] span`).textContent = mods.filter(mod => getModTypes(mod).includes(type)).length;
+  });
 }
 
 function updateStats() {
@@ -192,27 +247,39 @@ function renderPagination(totalPages) {
 }
 
 document.querySelector('#mod-search').addEventListener('input', event => {
-  const keyword = event.target.value.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  filteredMods = mods.filter(mod => `${mod.id} ${mod.hero || ''} ${mod.skin || ''} ${mod.title || ''} ${mod.category}`.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(keyword));
-  currentPage = 1;
-  renderCards();
+  applyFilters();
+});
+
+filterTabs.addEventListener('click', event => {
+  const button = event.target.closest('[data-filter]');
+  if (!button) return;
+  activeFilter = button.dataset.filter;
+  filterTabs.querySelectorAll('button').forEach(item => item.classList.toggle('active', item === button));
+  applyFilters();
 });
 
 pagination.addEventListener('click', event => {
   const button = event.target.closest('[data-page]');
   if (!button || button.disabled) return;
   currentPage = Number(button.dataset.page);
+  setPageUrl(currentPage, 'push');
+  renderCards();
+  document.querySelector('.section-head').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+window.addEventListener('popstate', () => {
+  currentPage = Math.max(1, Number(new URLSearchParams(location.search).get('page')) || 1);
   renderCards();
   document.querySelector('.section-head').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
 grid.addEventListener('click', event => {
-  const button = event.target.closest('[data-mod]');
-  if (!button) return;
-  const mod = mods.find(item => item.id === button.dataset.mod);
+  const card = event.target.closest('.mod-card[data-mod]');
+  if (!card) return;
+  const mod = mods.find(item => item.id === card.dataset.mod);
   if (!mod) return;
 
-  trigger = button;
+  trigger = card;
   const title = getModTitle(mod);
   const image = document.querySelector('#dialog-image');
   image.src = mod.image;
@@ -225,6 +292,14 @@ grid.addEventListener('click', event => {
   renderDownloadLinks(mod);
   dialog.showModal();
   document.body.classList.add('modal-open');
+});
+
+grid.addEventListener('keydown', event => {
+  if (event.key !== 'Enter' && event.key !== ' ') return;
+  const card = event.target.closest('.mod-card[data-mod]');
+  if (!card || event.target !== card) return;
+  event.preventDefault();
+  card.click();
 });
 
 document.querySelector('.modal-close').addEventListener('click', () => dialog.close());
@@ -245,3 +320,7 @@ observeReveals([
   document.querySelector('.app-promo'),
   document.querySelector('.guide')
 ].filter(Boolean));
+
+
+
+

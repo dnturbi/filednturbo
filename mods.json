@@ -22,7 +22,7 @@
   {
     "hero":"AZZEN'KA",
     "skin":"ELSA",
-    "image":"./assets/logo.svg",
+    "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3012708.jpg",
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Azzen'Ka Elsa dành cho Android.",
@@ -38,7 +38,7 @@
   {
     "hero":"PAINE",
     "skin":"SESSHOUMARU",
-    "image":"./assets/logo.svg",
+    "image":"./assets/137.jpg",
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Paine Sesshoumaru dành cho Android.",
@@ -50,7 +50,7 @@
   {
     "hero":"ELSU",
     "skin":"ÁM DẠ TUẦN VỆ",
-    "image":"./assets/logo.svg",
+    "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3019610.jpg",
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Elsu — Ám Dạ Tuần Vệ dành cho Android.",
@@ -62,7 +62,7 @@
   {
     "hero":"BIRON",
     "skin":"INUYASHA",
-    "image":"./assets/logo.svg",
+    "image":"./assets/503.jpg",
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Biron Inuyasha dành cho Android.",
@@ -95,7 +95,7 @@
   {
     "hero":"EDRAS",
     "skin":"SƠN HẢI — SÍ SƯƠNG TRẢM",
-    "image":"./assets/logo.svg",
+    "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3050703.jpg",
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Edras Sơn Hải — Sí Sương Trảm dành cho Android.",
@@ -104,7 +104,7 @@
   {
     "hero":"AMILY",
     "skin":"ĐÔNG HẢI LONG VƯƠNG — NGAO QUẢNG",
-    "image":"./assets/logo.svg",
+    "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3019309.jpg",
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Amily — Đông Hải Long Vương — Ngao Quảng dành cho Android.",
@@ -113,7 +113,7 @@
   {
     "hero":"VIOLET",
     "skin":"KUROMI",
-    "image":"./assets/logo.svg",
+    "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3011111.jpg",
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Violet Kuromi dành cho Android.",
@@ -125,7 +125,7 @@
   {
     "hero":"BILLOW",
     "skin":"TRỤC HOA QUY HẢI",
-    "image":"./assets/logo.svg",
+    "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3052804.jpg",
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Billow — Trục Hoa Quy Hải dành cho Android.",
@@ -134,7 +134,7 @@
   {
     "hero":"BILLOW",
     "skin":"VÔ SONG",
-    "image":"./assets/logo.svg",
+    "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3052807.jpg",
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Billow — Vô Song dành cho Android.",
@@ -152,7 +152,7 @@
   {
     "hero":"MURAD",
     "skin":"THI HÀNH KIẾM",
-    "image":"./assets/logo.svg",
+    "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3013107.jpg",
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Murad — Thi Hành Kiếm dành cho Android.",
@@ -161,7 +161,7 @@
   {
     "hero":"ELAND’ORR",
     "skin":"LY HẬN YÊN",
-    "image":"./assets/logo.svg",
+    "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3019907.jpg",
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Eland’orr — Ly Hận Yên dành cho Android.",
@@ -170,7 +170,7 @@
   {
     "hero":"TAMYN",
     "skin":"THẦN KÝ",
-    "image":"./assets/logo.svg",
+    "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3051807.jpg",
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"Tắt viền để tránh lỗi đồ họa. File MOD dành cho Android.",
@@ -179,7 +179,7 @@
   {
     "hero":"TAMYN",
     "skin":"KỶ NGUYÊN HỔ PHÁCH",
-    "image":"./assets/logo.svg",
+    "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3051805.jpg",
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Tamyn — Kỷ Nguyên Hổ Phách đang được cập nhật."
