@@ -1,9 +1,45 @@
-document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="./image-layout.css?v=3">');
+document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="./image-layout.css?v=8">');
 document.querySelector('.notice')?.remove();
 requestAnimationFrame(() => document.body.classList.add('page-loaded'));
 
 const grid = document.querySelector('#mod-grid');
 const dialog = document.querySelector('#download-dialog');
+const PAGE_SIZE = 12;
+let filteredMods = [];
+let visibleCount = PAGE_SIZE;
+const loadMoreButton = document.createElement('button');
+loadMoreButton.className = 'load-more';
+loadMoreButton.type = 'button';
+loadMoreButton.innerHTML = '<span>XEM THÊM</span><small></small><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+grid.after(loadMoreButton);
+const appPromo = document.createElement('section');
+appPromo.className = 'app-promo reveal';
+appPromo.innerHTML = `
+  <div class="app-glow" aria-hidden="true"></div>
+  <div class="phone-mockup" aria-hidden="true">
+    <div class="phone-screen">
+      <span class="phone-camera"></span>
+      <img src="./assets/logo.svg" alt="">
+      <strong>DN TURBO</strong>
+      <small>GAME BOOSTER</small>
+      <div class="boost-ring"><b>BOOST</b></div>
+    </div>
+  </div>
+  <div class="app-copy">
+    <p class="kicker"><span></span>ỨNG DỤNG DN TURBO</p>
+    <h2>TỐI ƯU TRẢI NGHIỆM<br><em>CHƠI GAME CỦA BẠN</em></h2>
+    <p>Tải DN Turbo Game Booster và xem hướng dẫn MOD file đầy đủ từ kênh DN Turbo.</p>
+    <div class="app-actions">
+      <a class="store-button" href="https://play.google.com/store/apps/details?id=com.modaov.turbogamebooster" target="_blank" rel="noopener noreferrer">
+        <img class="google-play-badge" src="https://play.google.com/intl/vi/badges/static/images/badges/vi_badge_web_generic.png" alt="Tải ứng dụng trên Google Play">
+      </a>
+      <a class="guide-button" href="https://youtu.be/X6D03XFG8cc" target="_blank" rel="noopener noreferrer">
+        <span class="play-icon"><i></i></span>
+        <span><small>XEM HƯỚNG DẪN TRÊN</small><strong>YouTube</strong></span>
+      </a>
+    </div>
+  </div>`;
+document.querySelector('.hero').append(appPromo);
 const defaultLink = document.querySelector('#bypass-link');
 const linkBox = document.createElement('div');
 linkBox.className = 'modal-links';
@@ -80,9 +116,14 @@ async function loadMods() {
   try {
     const response = await fetch('./mods.json');
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    mods = await response.json();
+    const data = await response.json();
+    mods = data.map((mod, index) => ({
+      ...mod,
+      id: String(index + 1).padStart(3, '0')
+    }));
     updateStats();
-    renderCards(mods);
+    filteredMods = mods;
+    renderCards();
   } catch (error) {
     console.error('Không thể tải mods.json:', error);
     grid.innerHTML = '<p class="load-error">Không thể tải danh sách MOD. Vui lòng thử lại sau.</p>';
@@ -98,18 +139,31 @@ function updateStats() {
   values[1].textContent = String(availableTypes).padStart(2, '0');
 }
 
-function renderCards(items) {
+function renderCards() {
+  const items = filteredMods.slice(0, visibleCount);
   grid.replaceChildren();
   items.forEach((mod, index) => grid.append(createCard(mod, index)));
   observeReveals([...grid.querySelectorAll('.mod-card')]);
-  document.querySelector('#search-count').textContent = `${items.length}/${mods.length}`;
-  if (!items.length) grid.innerHTML = '<p class="load-error">Không tìm thấy MOD phù hợp.</p>';
+  document.querySelector('#search-count').textContent = `${filteredMods.length}/${mods.length}`;
+  if (!filteredMods.length) grid.innerHTML = '<p class="load-error">Không tìm thấy MOD phù hợp.</p>';
+
+  const remaining = filteredMods.length - items.length;
+  loadMoreButton.hidden = remaining <= 0;
+  loadMoreButton.querySelector('small').textContent = remaining > 0 ? `+${Math.min(PAGE_SIZE, remaining)} MOD` : '';
 }
 
 document.querySelector('#mod-search').addEventListener('input', event => {
   const keyword = event.target.value.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  const results = mods.filter(mod => `${mod.id} ${mod.hero || ''} ${mod.skin || ''} ${mod.title || ''} ${mod.category}`.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(keyword));
-  renderCards(results);
+  filteredMods = mods.filter(mod => `${mod.id} ${mod.hero || ''} ${mod.skin || ''} ${mod.title || ''} ${mod.category}`.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(keyword));
+  visibleCount = PAGE_SIZE;
+  renderCards();
+});
+
+loadMoreButton.addEventListener('click', () => {
+  visibleCount += PAGE_SIZE;
+  renderCards();
+  const firstNewCard = grid.children[visibleCount - PAGE_SIZE];
+  firstNewCard?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
 
 grid.addEventListener('click', event => {
@@ -148,5 +202,6 @@ loadMods();
 
 observeReveals([
   document.querySelector('.section-head'),
+  document.querySelector('.app-promo'),
   document.querySelector('.guide')
 ].filter(Boolean));

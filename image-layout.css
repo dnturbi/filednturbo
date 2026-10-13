@@ -20,6 +20,49 @@
   text-align: center;
 }
 
+.load-more {
+  min-width: 190px;
+  height: 50px;
+  margin: 30px auto 0;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  transition: transform .2s, border-color .2s, background .2s !important;
+}
+
+.load-more:hover {
+  transform: translateY(-3px);
+  border-color: var(--lime);
+  background: #b7f72c0c;
+}
+
+.load-more small {
+  padding: 4px 6px;
+  border-radius: 5px;
+  background: var(--lime);
+  color: #080c16;
+  font-size: 8px;
+}
+
+.load-more svg {
+  width: 15px;
+  color: var(--lime);
+}
+
+.load-more[hidden] {
+  display: none;
+}
+
 .modal-links {
   display: grid;
   gap: 10px;
@@ -144,6 +187,349 @@
   }
 }
 
+/* Giới thiệu ứng dụng */
+.app-promo {
+  min-height: 470px;
+  margin: 30px 0 70px;
+  padding: 55px 70px;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  align-items: center;
+  gap: 70px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background: linear-gradient(125deg, #101724 0%, #111929 60%, #172014 100%);
+}
+
+.app-promo:after {
+  content: "DN";
+  position: absolute;
+  right: -20px;
+  bottom: -90px;
+  color: transparent;
+  -webkit-text-stroke: 1px #b7f72c12;
+  font-size: 260px;
+  font-weight: 900;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.app-glow {
+  position: absolute;
+  left: 30px;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: #b7f72c1a;
+  filter: blur(55px);
+}
+
+.phone-mockup {
+  width: 225px;
+  height: 400px;
+  margin: auto;
+  padding: 9px;
+  position: relative;
+  z-index: 1;
+  border: 1px solid #526078;
+  border-radius: 35px;
+  background: #05070c;
+  box-shadow: 25px 35px 55px #0008;
+  transform: rotate(-5deg);
+  animation: phone-float 4.5s ease-in-out infinite;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  padding-top: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 27px;
+  background: radial-gradient(circle at 50% 65%, #b7f72c24, transparent 35%), linear-gradient(#141b2a, #080c15);
+}
+
+.phone-camera {
+  position: absolute;
+  top: 10px;
+  width: 70px;
+  height: 20px;
+  border-radius: 15px;
+  background: #03050a;
+}
+
+.phone-screen>img { width: 58px; height: 58px; padding: 8px; border-radius: 16px; background: var(--lime); }
+.phone-screen>strong { margin-top: 14px; font-size: 17px; letter-spacing: 2px; }
+.phone-screen>small { margin-top: 5px; color: var(--lime); font-size: 7px; font-weight: 900; letter-spacing: 2px; }
+.boost-ring { width: 125px; height: 125px; margin-top: 40px; display: grid; place-items: center; border: 3px solid var(--lime); border-radius: 50%; box-shadow: 0 0 0 9px #b7f72c0b, 0 0 35px #b7f72c2b; }
+.boost-ring b { font-size: 13px; letter-spacing: 2px; }
+.app-copy { position: relative; z-index: 1; }
+.app-copy h2 { max-width: 650px; margin: 0 0 20px; font-size: clamp(34px, 4vw, 52px); line-height: 1.03; letter-spacing: -2px; }
+.app-copy h2 em { color: var(--lime); font-style: normal; }
+.app-copy>p:last-of-type { max-width: 560px; margin-bottom: 30px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+.app-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.store-button,.guide-button { min-width: 220px; height: 62px; padding: 0 17px; display: flex; align-items: center; gap: 12px; border-radius: 12px; transition: transform .2s, border-color .2s, background .2s !important; }
+.store-button { background: var(--lime); color: #090d15; }
+.guide-button { border: 1px solid #ff334f66; background: #ff17440c; }
+.store-button:hover,.guide-button:hover { transform: translateY(-3px); }
+.guide-button:hover { border-color: #ff1744; background: #ff174418; }
+.store-button>img { width: 27px; height: 27px; }
+.store-button>span,.guide-button>span:not(.play-icon) { display: flex; flex: 1; flex-direction: column; gap: 3px; }
+.app-actions small { font-size: 7px; font-weight: 700; letter-spacing: 1px; opacity: .7; }
+.app-actions strong { font-size: 12px; letter-spacing: .7px; }
+.app-actions>*>svg { width: 15px; }
+.play-icon { width: 31px; height: 31px; display: grid; place-items: center; border-radius: 9px; background: #ff1744; }
+.play-icon i { margin-left: 2px; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 8px solid white; }
+
+@keyframes phone-float {
+  0%,100% { transform: rotate(-5deg) translateY(0); }
+  50% { transform: rotate(-2deg) translateY(-13px); }
+}
+
+@media (max-width: 900px) {
+  .app-promo { padding: 45px 35px; grid-template-columns: 260px 1fr; gap: 35px; }
+  .phone-mockup { width: 190px; height: 340px; }
+  .boost-ring { width: 105px; height: 105px; margin-top: 30px; }
+}
+
+@media (max-width: 650px) {
+  .app-promo {
+    min-height: 0;
+    margin: 20px 0 55px;
+    padding: 30px 22px 24px;
+    display: block;
+    text-align: left;
+    border-radius: 20px;
+    background: radial-gradient(circle at 100% 0, #b7f72c16, transparent 38%), linear-gradient(145deg, #111927, #0d131f);
+  }
+
+  .app-promo:after {
+    right: -8px;
+    bottom: -35px;
+    font-size: 115px;
+  }
+
+  .app-glow {
+    left: auto;
+    right: -100px;
+    top: -100px;
+    width: 230px;
+    height: 230px;
+  }
+
+  .app-copy { grid-row: auto; }
+  .app-copy .kicker { justify-content: center; }
+  .app-copy h2 { margin-bottom: 14px; font-size: 29px; line-height: 1.08; letter-spacing: -1.2px; text-align: center; }
+  .app-copy>p:last-of-type { margin: 0 auto 22px; font-size: 12px; line-height: 1.7; text-align: center; }
+  .app-actions { display: grid; }
+  .store-button,.guide-button { width: 100%; min-width: 0; height: 56px; text-align: left; }
+  .phone-mockup { display: none; }
+}
+
+/* Banner ứng dụng nằm trong khoảng trống cuối hero */
+.hero > .app-promo {
+  grid-column: 1 / -1;
+  width: 100%;
+  min-height: 0;
+  margin: -35px 0 15px;
+  padding: 25px 28px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 28px;
+  border-radius: 18px;
+  background: linear-gradient(110deg, #121a28, #111a20);
+}
+
+/* Thu gọn nhịp dọc sau khi banner được đưa vào hero. */
+@media (min-width: 901px) {
+  .hero {
+    min-height: 0;
+    padding: 55px 0 20px;
+    row-gap: 18px;
+  }
+
+  .hero-visual {
+    height: 440px;
+  }
+
+  .visual-card {
+    width: 315px;
+  }
+
+  .orbit.one {
+    width: 390px;
+    height: 390px;
+  }
+
+  .orbit.two {
+    width: 455px;
+    height: 455px;
+  }
+
+  .hero > .app-promo {
+    margin: -10px 0 0;
+  }
+
+  .collection {
+    padding-top: 55px;
+  }
+}
+
+@media (max-width: 900px) {
+  .collection {
+    padding-top: 50px;
+  }
+}
+
+.hero > .app-promo .phone-mockup,
+.hero > .app-promo .app-glow,
+.hero > .app-promo:after,
+.hero > .app-promo .kicker {
+  display: none;
+}
+
+.hero > .app-promo .app-copy { display: contents; }
+.hero > .app-promo h2 { align-self: center; max-width: none; margin: 0; font-size: 25px; line-height: 1.08; letter-spacing: -1px; }
+.hero > .app-promo h2 br { display: none; }
+.hero > .app-promo .app-copy > p:last-of-type { display: none; }
+.hero > .app-promo .app-actions { display: flex; align-items: center; flex-wrap: nowrap; }
+.hero > .app-promo .store-button,
+.hero > .app-promo .guide-button { min-width: 205px; height: 56px; }
+
+@media (max-width: 900px) {
+  .hero > .app-promo { margin-top: 10px; grid-template-columns: 1fr; text-align: center; }
+  .hero > .app-promo .app-actions { justify-content: center; }
+}
+
+@media (max-width: 600px) {
+  .hero > .app-promo { margin: 10px 0 20px; padding: 24px 18px 18px; display: block; }
+  .hero > .app-promo h2 { margin-bottom: 20px; font-size: 25px; text-align: center; }
+  .hero > .app-promo h2 br { display: block; }
+  .hero > .app-promo .app-actions { display: grid; }
+}
+
+/* Badge cửa hàng */
+.hero > .app-promo .store-button,
+.hero > .app-promo .guide-button {
+  width: 205px;
+  height: 60px;
+  min-width: 205px;
+  border-radius: 9px;
+  background: #050505;
+}
+
+.hero > .app-promo .store-button {
+  padding: 0;
+  height: auto;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+}
+
+.google-play-badge {
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+}
+
+.hero > .app-promo .guide-button {
+  padding: 0 17px;
+  border: 1px solid #a6a6a6;
+  color: white;
+}
+
+.hero > .app-promo .guide-button:hover {
+  border-color: white;
+  background: #121212;
+}
+
+.hero > .app-promo .guide-button strong {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -.3px;
+}
+
+.hero > .app-promo .guide-button small {
+  font-size: 7px;
+  letter-spacing: .7px;
+}
+
+@media (max-width: 600px) {
+  .mod-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .mod-card {
+    border-radius: 14px;
+  }
+
+  .card-image img {
+    aspect-ratio: 1.35 / 1;
+  }
+
+  .number {
+    left: 9px;
+    top: 9px;
+    width: 31px;
+    height: 31px;
+    border-radius: 8px;
+    font-size: 8px;
+  }
+
+  .category {
+    right: 9px;
+    top: 9px;
+    padding: 7px 8px;
+    font-size: 7px;
+  }
+
+  .card-body {
+    min-height: 105px;
+    padding: 7px 11px 12px;
+    gap: 7px;
+  }
+
+  .card-body p {
+    font-size: 7px;
+    letter-spacing: 1.1px;
+  }
+
+  .card-body h3 {
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .card-body button {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+  }
+
+  .card-body button svg {
+    width: 15px;
+  }
+
+  .hero > .app-promo .store-button,
+  .hero > .app-promo .guide-button {
+    width: 100%;
+    min-width: 0;
+    height: 58px;
+  }
+
+  .hero > .app-promo .store-button {
+    width: 205px;
+    height: auto;
+    max-width: 100%;
+    margin: auto;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-copy > *, .main-card, .back, .orbit, .spark, .brand-icon {
     animation: none !important;
@@ -153,6 +539,95 @@
   .reveal {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Luôn chạy hiệu ứng trên desktop, kể cả khi Windows bật Reduce motion. */
+@media (min-width: 901px) {
+  .page-loaded .hero-copy > * {
+    animation: hero-enter .8s cubic-bezier(.2,.75,.25,1) forwards !important;
+  }
+
+  .main-card { animation: card-float 4s ease-in-out infinite !important; }
+  .back { animation: card-float-back 5s ease-in-out infinite !important; }
+  .orbit.one { animation: orbit-spin 20s linear infinite !important; }
+  .orbit.two { animation: orbit-spin-reverse 28s linear infinite !important; }
+  .spark { animation: spark-pulse 1.6s ease-in-out infinite !important; }
+  .brand-icon { animation: logo-bob 4s ease-in-out infinite !important; }
+  .phone-mockup { animation: phone-float 4.5s ease-in-out infinite !important; }
+
+  .reveal {
+    transition: opacity .65s ease var(--reveal-delay, 0ms), transform .65s cubic-bezier(.2,.75,.25,1) var(--reveal-delay, 0ms) !important;
+  }
+
+  .mod-card:after { transition: transform .7s ease !important; }
+  .mod-card { transition: transform .25s, border-color .25s, box-shadow .25s !important; }
+}
+
+/* Nút YouTube */
+.youtube {
+  position: relative;
+  border-color: #ff334f55;
+  background: #ff334f0d;
+  transition: color .2s, background .2s, border-color .2s, transform .2s !important;
+}
+
+.youtube::before {
+  content: "";
+  width: 26px;
+  height: 18px;
+  border-radius: 6px;
+  background: #ff1744;
+  box-shadow: 0 5px 15px #ff174433;
+}
+
+.youtube::after {
+  content: "";
+  position: absolute;
+  left: 27px;
+  top: 16px;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid white;
+}
+
+.youtube svg {
+  display: none;
+}
+
+.youtube:hover {
+  color: white;
+  border-color: #ff334f;
+  background: #ff1744;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .youtube {
+    position: relative;
+    width: 46px;
+    height: 38px;
+    padding: 0;
+    border: 0;
+    border-radius: 10px;
+    background: #ff1744;
+    box-shadow: 0 7px 18px #ff174433;
+  }
+
+  .youtube::before {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .youtube::after {
+    left: 20px;
+    top: 14px;
+    margin: 0;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 8px;
   }
 }
 
