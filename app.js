@@ -1,4 +1,4 @@
-﻿document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="./image-layout.css?v=17">');
+﻿document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="./image-layout.css?v=26">');
 document.querySelector('.notice')?.remove();
 requestAnimationFrame(() => document.body.classList.add('page-loaded'));
 
@@ -54,9 +54,6 @@ filterTabs.className = 'filter-tabs';
 filterTabs.innerHTML = `
   <button type="button" class="active" data-filter="skin">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 4 4 2 4-2 4 3-2 4v9H6v-9L4 7l4-3Z"/><path d="M9 4c.4 1.4 1.4 2 3 2s2.6-.6 3-2"/></svg><b>SKIN</b><span></span>
-  </button>
-  <button type="button" data-filter="button">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8h10a5 5 0 0 1 4.7 6.7l-1 3A2 2 0 0 1 17.4 19L15 17H9l-2.4 2a2 2 0 0 1-3.3-1.3l-1-3A5 5 0 0 1 7 8Z"/><path d="M7 12v4M5 14h4M16 13h.01M19 15h.01"/></svg><b>NÚT BẤM</b><span></span>
   </button>
   <button type="button" data-filter="map">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15M15 6v15"/></svg><b>MAP</b><span></span>
@@ -144,13 +141,17 @@ function renderDownloadLinks(mod) {
     </section>`).join('');
 }
 
-function renderBadges(mod) {
-  const badges = document.querySelector('.badges');
-  const items = [
+function getPlatforms(mod) {
+  return [
     { visible: mod.link_android || mod.links_android?.length, label: 'ANDROID', icon: './assets/logo-android.svg' },
     { visible: mod.link_ios || mod.links_ios?.length, label: 'IOS', icon: './assets/logo-ios.svg' },
-    { visible: mod.link_3105 || mod.links_3105?.length, label: 'BẢN .3105', icon: './assets/logo-3105.svg' }
+    { visible: mod.link_3105 || mod.links_3105?.length, label: '.3105', icon: './assets/logo-3105.svg' }
   ].filter(item => item.visible);
+}
+
+function renderBadges(mod) {
+  const badges = document.querySelector('.badges');
+  const items = getPlatforms(mod);
 
   badges.innerHTML = items.map(item => `<span><img class="platform-logo" src="${item.icon}" alt="">${item.label}</span>`).join('');
   badges.hidden = items.length === 0;
@@ -158,13 +159,17 @@ function renderBadges(mod) {
 
 function createCard(mod, index) {
   const title = getModTitle(mod);
+  const platformTags = getPlatforms(mod).map(item => {
+    const type = item.label === 'ANDROID' ? 'android' : item.label === 'IOS' ? 'ios' : 'version';
+    return `<span class="${type}"><img src="${item.icon}" alt="">${item.label}</span>`;
+  }).join('');
   const card = document.createElement('article');
   card.className = 'mod-card';
   card.dataset.mod = mod.id;
   card.tabIndex = 0;
   card.setAttribute('role', 'button');
   card.setAttribute('aria-label', `Xem và tải ${title}`);
-  card.innerHTML = `<div class="card-image"><img src="${mod.image}" alt="${title}" style="object-position:${mod.position || 'center'}" ${index > 2 ? 'loading="lazy"' : ''}><span class="number">${mod.id}</span><span class="category">${mod.category}</span></div><div class="card-body"><div><p>MOD #${mod.id}</p><h3>${title}</h3></div><button type="button" aria-label="Tải file ${title}" tabindex="-1"><svg viewBox="0 0 24 24"><path d="M12 4v12m0 0 5-5m-5 5-5-5M5 20h14"/></svg></button></div>`;
+  card.innerHTML = `<div class="card-image"><img src="${mod.image}" alt="${title}" style="object-position:${mod.position || 'center'}" ${index > 2 ? 'loading="lazy"' : ''}><span class="number">${mod.id}</span><span class="category">${mod.category}</span></div><div class="card-body"><div class="card-info"><p>MOD #${mod.id}</p><h3>${title}</h3><div class="card-platforms">${platformTags}</div></div><button type="button" aria-label="Tải file ${title}" tabindex="-1"><span>TẢI</span><svg viewBox="0 0 24 24"><path d="M12 4v12m0 0 5-5m-5 5-5-5M5 20h14"/></svg></button></div>`;
   return card;
 }
 
@@ -189,7 +194,7 @@ async function loadMods() {
 }
 
 function updateFilterCounts() {
-  ['skin', 'button', 'map'].forEach(type => {
+  ['skin', 'map'].forEach(type => {
     filterTabs.querySelector(`[data-filter="${type}"] span`).textContent = mods.filter(mod => getModTypes(mod).includes(type)).length;
   });
 }
@@ -254,6 +259,7 @@ filterTabs.addEventListener('click', event => {
   const button = event.target.closest('[data-filter]');
   if (!button) return;
   activeFilter = button.dataset.filter;
+  filterTabs.style.setProperty('--tab-index', [...filterTabs.children].indexOf(button));
   filterTabs.querySelectorAll('button').forEach(item => item.classList.toggle('active', item === button));
   applyFilters();
 });
@@ -320,6 +326,15 @@ observeReveals([
   document.querySelector('.app-promo'),
   document.querySelector('.guide')
 ].filter(Boolean));
+
+
+
+
+
+
+
+
+
 
 
 
