@@ -17,7 +17,11 @@
     "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3013008.jpg",
     "position":"center",
     "category":"MIỄN PHÍ",
-    "description":"File MOD ICHIGO KUROSAKI Musashi dành cho Android."
+    "description":"File MOD ICHIGO KUROSAKI Musashi dành cho Android.",
+	"links_android":[
+      {"label":"SKIN","url":"https://gtraffic.io/2Q5aWZT"},
+      {"label":"NÚT BẤM","url":"https://gtraffic.io/sQa32h5"}
+    ]
   },
   {
     "hero":"Veera",
@@ -84,10 +88,7 @@
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Paine Sesshoumaru dành cho Android.",
-    "links_android":[
-      {"label":"TẢI SKIN","url":"https://gtraffic.io/4pnQKJt"},
-      {"label":"TẢI NÚT BẤM","url":"https://gtraffic.io/JnKUQ4K"}
-    ]
+    "link_android":"https://gtraffic.io/TQnc5X2"
   },
   {
     "hero":"ELSU",
@@ -96,10 +97,7 @@
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Elsu — Ám Dạ Tuần Vệ dành cho Android.",
-    "links_android":[
-      {"label":"TẢI SKIN","url":"https://gtraffic.io/9Qd4qga"},
-      {"label":"TẢI NÚT BẤM","url":"https://gtraffic.io/4Q0aTgV"}
-    ]
+    "link_android":"https://gtraffic.io/o54Qiv2"
   },
   {
     "hero":"BIRON",
@@ -108,10 +106,7 @@
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Biron Inuyasha dành cho Android.",
-    "links_android":[
-      {"label":"TẢI SKIN","url":"https://gtraffic.io/S4JQKu7"},
-      {"label":"TẢI NÚT BẤM","url":"https://gtraffic.io/KErQ4Jr"}
-    ]
+    "link_android":"https://gtraffic.io/QQ28eo5"
   },
   {
     "hero":"NGỘ KHÔNG",
@@ -120,10 +115,7 @@
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Ngộ Không — Vô Tướng dành cho Android.",
-    "links_android":[
-      {"label":"TẢI SKIN","url":"https://gtraffic.io/z3DQez_"},
-      {"label":"TẢI NÚT BẤM","url":"https://gtraffic.io/PX3eNQ_"}
-    ]
+    "link_android":"https://gtraffic.io/5omGC2Q"
   },
   {
     "hero":"EDRAS",
@@ -132,7 +124,7 @@
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Edras — Vấn Tâm Kiếm dành cho Android.",
-    "link_android":"https://gtraffic.io/_e3Qh7e"
+    "link_android":"https://gtraffic.io/UQzI2o5"
   },
   {
     "hero":"AMILY",
@@ -141,7 +133,7 @@
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Amily — Đông Hải Long Vương — Ngao Quảng dành cho Android.",
-    "link_android":"https://gtraffic.io/Qe_o4S3"
+    "link_android":"https://gtraffic.io/EowQ5O2"
   },
   {
     "hero":"VIOLET",
@@ -150,10 +142,7 @@
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Violet Kuromi dành cho Android.",
-    "links_android":[
-      {"label":"TẢI SKIN","url":"https://gtraffic.io/tQz3BWi"},
-      {"label":"TẢI NÚT BẤM","url":"https://gtraffic.io/3tqBirQ"}
-    ]
+    "link_android":"https://gtraffic.io/SQ52Yoj"
   },
   {
     "hero":"BILLOW",
@@ -161,8 +150,7 @@
     "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3052804.jpg",
     "position":"center",
     "category":"MIỄN PHÍ",
-    "description":"File MOD Billow — Trục Hoa Quy Hải dành cho Android.",
-    "link_android":"https://gtraffic.io/OXQ3_pe"
+    "description":"File MOD Billow — Trục Hoa Quy Hải dành cho Android."
   },
   {
     "hero":"BILLOW",
@@ -171,7 +159,7 @@
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Billow — Vô Song dành cho Android.",
-    "link_android":"https://gtraffic.io/x_3_eQZ"
+    "link_android":"https://gtraffic.io/uY25YQo"
   },
   {
     "hero":"LAURIEL",
@@ -180,7 +168,7 @@
     "position":"40% center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Lauriel — Mucha Phức Mộng Phồn Hoa dành cho Android.",
-    "link_android":"https://gtraffic.io/R3Q_qee"
+    "link_android":"https://gtraffic.io/2e55oQA"
   },
   {
     "hero":"MURAD",
@@ -189,7 +177,7 @@
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Murad — Thi Hành Kiếm dành cho Android.",
-    "link_android":"https://gtraffic.io/w_ehQ3j"
+    "link_android":"https://gtraffic.io/oP5QhH2"
   },
   {
     "hero":"ELAND’ORR",
@@ -198,7 +186,7 @@
     "position":"center",
     "category":"MIỄN PHÍ",
     "description":"File MOD Eland’orr — Ly Hận Yên dành cho Android.",
-    "link_android":"https://gtraffic.io/l3eeNQ_"
+    "link_android":"https://gtraffic.io/3Q25koS"
   },
   {
     "hero":"TAMYN",
@@ -206,8 +194,7 @@
     "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3051807.jpg",
     "position":"center",
     "category":"MIỄN PHÍ",
-    "description":"Tắt viền để tránh lỗi đồ họa. File MOD dành cho Android.",
-    "link_android":"https://gtraffic.io/jVzQ3nt"
+    "description":"Tắt viền để tránh lỗi đồ họa. File MOD dành cho Android."
   },
   {
     "hero":"TAMYN",
