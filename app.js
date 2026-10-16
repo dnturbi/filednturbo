@@ -1,4 +1,4 @@
-﻿document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="./image-layout.css?v=26">');
+﻿document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="./image-layout.css?v=30">');
 document.querySelector('.notice')?.remove();
 requestAnimationFrame(() => document.body.classList.add('page-loaded'));
 
@@ -120,7 +120,7 @@ function renderDownloadLinks(mod) {
   const groups = [
     { name: 'ANDROID', icon: './assets/logo-android.svg', links: makeLinks(mod.links_android, mod.link_android, 'TẢI FILE') },
     { name: 'IOS', icon: './assets/logo-ios.svg', links: makeLinks(mod.links_ios, mod.link_ios, 'TẢI FILE') },
-    { name: 'BẢN .3105', icon: './assets/logo-3105.svg', links: makeLinks(mod.links_3105, mod.link_3105, 'TẢI FILE') }
+    { name: '.3105', icon: './assets/logo-3105.svg', links: makeLinks(mod.links_3105, mod.link_3105, 'TẢI FILE') }
   ].filter(group => group.links.length);
 
   if (!groups.length) {
@@ -130,11 +130,11 @@ function renderDownloadLinks(mod) {
 
   linkBox.innerHTML = groups.map(group => `
     <section class="download-group">
-      <div class="download-group-title"><img src="${group.icon}" alt=""><span>${group.name}</span><small>${group.links.length} FILE</small></div>
+      <div class="download-group-title"><span class="download-platform-icon"><img src="${group.icon}" alt=""></span><span>${group.name}</span><small>${group.links.length} FILE</small></div>
       <div class="download-group-buttons">
         ${group.links.map(item => `
           <a href="${item.url}" target="_blank" rel="noopener noreferrer">
-            <span>${item.label.replace(/^(ANDROID|IOS|\.3105)\s*[—-]\s*/i, '')}</span>
+            <span class="file-link-copy"><b>${item.label.replace(/^(ANDROID|IOS|\.3105)\s*[—-]\s*/i, '')}</b><small>MỞ LIÊN KẾT TẢI XUỐNG</small></span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/></svg>
           </a>`).join('')}
       </div>

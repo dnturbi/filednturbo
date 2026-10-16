@@ -1,10 +1,36 @@
 /* Tỉ lệ popup rộng hơn để ảnh ngang giữ được nhiều nội dung hơn. */
 .modal {
   width: min(980px, calc(100% - 30px));
+  max-height: calc(100dvh - 24px);
 }
 
 .modal[open] {
   grid-template-columns: 52% 48%;
+  min-height: min(470px, calc(100dvh - 24px));
+}
+
+@media (min-width: 601px) {
+  .modal-image {
+    min-height: 0;
+  }
+
+  .modal-body {
+    min-height: 0;
+    max-height: calc(100dvh - 24px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #3a4a66 transparent;
+  }
+
+  .modal-body::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .modal-body::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: #3a4a66;
+  }
 }
 
 .modal-image img {
@@ -137,26 +163,39 @@
 }
 
 .download-group {
-  padding: 11px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: #0b111d;
+  padding: 15px;
+  border: 1px solid #2b3950;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #0e1725 0%, #09101b 100%);
+  box-shadow: inset 0 1px 0 #ffffff0a, 0 12px 28px #0000001f;
 }
 
 .download-group-title {
-  margin-bottom: 9px;
+  min-height: 32px;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   color: var(--text);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 900;
-  letter-spacing: 1px;
+  letter-spacing: .65px;
+}
+
+.download-platform-icon {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #b7f72c30;
+  border-radius: 10px;
+  background: #b7f72c12;
+  box-shadow: inset 0 1px 0 #ffffff0a;
 }
 
 .download-group-title img {
-  width: 17px;
-  height: 17px;
+  width: 18px;
+  height: 18px;
   object-fit: contain;
 }
 
@@ -167,44 +206,82 @@
 
 .download-group-title small {
   margin-left: auto;
-  color: var(--muted);
-  font-size: 7px;
-  letter-spacing: .7px;
+  padding: 5px 8px;
+  border: 1px solid #2d3b52;
+  border-radius: 999px;
+  background: #131d2c;
+  color: #aeb9ca;
+  font-size: 8px;
+  letter-spacing: .6px;
 }
 
 .download-group-buttons {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 7px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
 }
 
 .download-group-buttons a {
-  min-height: 39px;
-  padding: 0 11px;
+  min-height: 58px;
+  padding: 7px 9px 7px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  border-radius: 8px;
-  border: 1px solid #2b3850;
-  background: #182235;
+  gap: 12px;
+  border-radius: 12px;
+  border: 1px solid #2d3d57;
+  background: linear-gradient(135deg, #18243a, #121b2b);
   color: #f4f7fb;
-  font-size: 8px;
+  box-shadow: inset 0 1px 0 #ffffff08, 0 4px 12px #0000001a;
+  transition: border-color .2s, transform .2s, box-shadow .2s !important;
+}
+
+.file-link-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.file-link-copy b {
+  overflow: hidden;
+  color: #f7f9fc;
+  font-size: 10px;
   font-weight: 900;
-  line-height: 1.25;
-  letter-spacing: .45px;
-  transition: background .2s, color .2s, transform .2s !important;
+  letter-spacing: .55px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-link-copy small {
+  color: #8290a6;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: .65px;
 }
 
 .download-group-buttons a:hover {
-  transform: translateY(-2px);
-  background: var(--lime);
-  color: #080c16;
+  transform: translateX(3px);
+  border-color: #b7f72c8c;
+  box-shadow: inset 0 1px 0 #ffffff0c, 0 8px 20px #0000002b;
 }
 
 .download-group-buttons svg {
-  width: 14px;
+  width: 36px;
+  height: 36px;
+  padding: 9px;
   flex: none;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #c6ff45, #94df00);
+  color: #080c16;
+  stroke-width: 2.2;
+  box-shadow: 0 6px 16px #a8ef162b, inset 0 1px 0 #ffffff73;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.download-group-buttons a:hover svg {
+  color: #080c16;
+  transform: translateY(2px);
 }
 
 .platform-logo {
@@ -362,6 +439,14 @@
     width: calc(100% - 20px);
     max-height: calc(100dvh - 20px);
     border-radius: 18px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .modal-body {
+    max-height: none;
+    overflow: visible;
   }
 
   .modal-image {
@@ -414,14 +499,13 @@
   }
 
   .download-group {
-    padding: 10px;
+    padding: 12px;
     border-color: #33415b;
-    background: #0a101b;
   }
 
   .download-group-title {
-    margin-bottom: 8px;
-    font-size: 9px;
+    margin-bottom: 10px;
+    font-size: 10px;
   }
 
   .download-group-title small {
@@ -433,15 +517,14 @@
   }
 
   .download-group-buttons a {
-    min-height: 42px;
-    padding: 0 10px;
+    min-height: 56px;
+    padding: 7px 8px 7px 12px;
     border-color: #35435d;
-    font-size: 8px;
   }
 
   .download-group-buttons a:active {
-    background: var(--lime);
-    color: #080c16;
+    transform: scale(.985);
+    border-color: var(--lime);
   }
 }
 
