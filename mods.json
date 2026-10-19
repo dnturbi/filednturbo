@@ -11,17 +11,14 @@
       {"label":"ANDROID — NÚT BẤM","url":"https://gtraffic.io/JnKUQ4K"}
     ]
   },
+
   {
-    "hero":"Airi ",
-    "skin":"ICHIGO KUROSAKI Musashi",
-    "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3013008.jpg",
+    "hero":"Evita",
+    "skin":"Khí Linh • Lạc Tinh Trản",
+    "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3051506.jpg",
     "position":"center",
     "category":"MIỄN PHÍ",
-    "description":"File MOD ICHIGO KUROSAKI Musashi dành cho Android.",
-	"links_android":[
-      {"label":"SKIN","url":"https://gtraffic.io/2Q5aWZT"},
-      {"label":"NÚT BẤM","url":"https://gtraffic.io/sQa32h5"}
-    ]
+    "description":"File MOD ICHIGO KUROSAKI Musashi dành cho Android."
   },
   {
     "hero":"Veera",
@@ -80,7 +77,8 @@
       {"label":"TẢI SKIN","url":"https://gtraffic.io/rI_j47Q"},
       {"label":"LINK DỰ PHÒNG","url":"https://trafficso1.com/9X4L_Qj"}
     ]
-  },
+  }
+  /*,
   {
     "hero":"PAINE",
     "skin":"SESSHOUMARU",
@@ -204,4 +202,5 @@
     "category":"MIỄN PHÍ",
     "description":"File MOD Tamyn — Kỷ Nguyên Hổ Phách đang được cập nhật."
   }
+  */
 ]
