@@ -11,14 +11,16 @@
       {"label":"ANDROID — NÚT BẤM","url":"https://gtraffic.io/JnKUQ4K"}
     ]
   },
-
   {
     "hero":"Evita",
     "skin":"Khí Linh • Lạc Tinh Trản",
     "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3051506.jpg",
     "position":"center",
     "category":"MIỄN PHÍ",
-    "description":"File MOD ICHIGO KUROSAKI Musashi dành cho Android."
+    "description":"File MOD ICHIGO KUROSAKI Musashi dành cho Android.",
+	"links_android":[
+      {"label":"SKIN","url":"https://gtraffic.io/QIY54Hz"}
+    ]
   },
   {
     "hero":"Veera",
