@@ -12,6 +12,15 @@
     ]
   },
   {
+    "hero":"EDRAS",
+    "skin":"VẤN TÂM KIẾM",
+    "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3050704.jpg",
+    "position":"center",
+    "category":"MIỄN PHÍ",
+    "description":"File MOD Edras — Vấn Tâm Kiếm dành cho Android.",
+    "link_android":"https://gtraffic.io/6npk5Qp"
+  },
+  {
     "hero":"Evita",
     "skin":"Khí Linh • Lạc Tinh Trản",
     "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3051506.jpg",
@@ -127,15 +136,6 @@
     "category":"MIỄN PHÍ",
     "description":"File MOD Ngộ Không — Vô Tướng dành cho Android.",
     "link_android":"https://gtraffic.io/5omGC2Q"
-  },
-  {
-    "hero":"EDRAS",
-    "skin":"VẤN TÂM KIẾM",
-    "image":"https://image.smoba.qq.com/Picture/HeroOriginalPainting/3050704.jpg",
-    "position":"center",
-    "category":"MIỄN PHÍ",
-    "description":"File MOD Edras — Vấn Tâm Kiếm dành cho Android.",
-    "link_android":"https://gtraffic.io/UQzI2o5"
   },
   {
     "hero":"AMILY",
