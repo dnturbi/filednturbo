@@ -1,0 +1,7 @@
+{
+  "name": "mod-space",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Kho trang phục MOD với giao diện phong cách iOS",
+  "scripts": { "start": "node server.js", "dev": "node --watch server.js", "check": "node --check app.js && node --check server.js" }
+}
