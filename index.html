@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#ececf1">
-  <meta name="description" content="Danh sách skin MOD Liên Quân và liên kết tải cho Android.">
+  <meta name="description" content="Danh sách skin MOD Liên Quân và liên kết tải cho Android và iOS.">
   <title>Danh sách file skin</title>
   <script>
     (() => {
@@ -14,8 +14,8 @@
     })();
   </script>
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=8">
-  <script src="app.js?v=8" defer></script>
+  <link rel="stylesheet" href="styles.css?v=9">
+  <script src="app.js?v=9" defer></script>
 </head>
 <body>
   <main>
@@ -29,7 +29,11 @@
     <div class="detail-body">
       <div class="detail-title-row"><div><p class="detail-hero" id="detail-hero"></p><h2 id="detail-title"></h2></div></div>
       <p class="detail-description" id="detail-description"></p>
-      <a class="detail-download" id="detail-download" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 17v4h14v-4"/></svg><span>Tải cho Android</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+      <div class="detail-downloads">
+        <a class="detail-download" id="detail-download" target="_blank" rel="noopener noreferrer" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 17v4h14v-4"/></svg><span>Tải cho Android</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+        <a class="detail-download" id="detail-download-ios" target="_blank" rel="noopener noreferrer" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 17v4h14v-4"/></svg><span>Tải cho iOS</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+      </div>
+      <p class="detail-description" id="detail-unavailable" hidden>Chưa có link tải cho skin này.</p>
       <p class="detail-note"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.1"/></svg>Mở trang tải bên ngoài. Làm theo hướng dẫn trên trang để tải file.</p>
     </div>
   </dialog>

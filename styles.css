@@ -28,5 +28,6 @@ body:has(dialog[open]){overflow:hidden}#detail-dialog{width:min(520px,calc(100% 
 .detail-description,.detail-note{color:var(--detail-muted)}
 .detail-download{background:var(--detail-action);color:#fff;border-radius:13px;font-family:inherit}
 .detail-download:hover{background:var(--detail-action-hover)}
+.detail-downloads{display:grid;gap:10px}
 .detail-download:active,.detail-close:active{transform:scale(.98)}
 

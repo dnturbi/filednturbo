@@ -98,10 +98,20 @@
     document.querySelector('#detail-title').textContent = titleCase(mod.skin);
     document.querySelector('#detail-category').textContent = mod.category || 'MOD';
     document.querySelector('#detail-description').textContent = mod.description || `Trang phục ${titleCase(mod.skin)} dành cho ${titleCase(mod.hero)}.`;
-    const download = document.querySelector('#detail-download');
-    const url = safeLink(mod.link_android);
-    if (url) { download.href = url; download.removeAttribute('aria-disabled'); }
-    else { download.removeAttribute('href'); download.setAttribute('aria-disabled', 'true'); }
+    const downloads = [
+      ['#detail-download', mod.link_android],
+      ['#detail-download-ios', mod.link_ios]
+    ];
+    let hasDownload = false;
+    downloads.forEach(([selector, value]) => {
+      const download = document.querySelector(selector);
+      const url = safeLink(value);
+      download.hidden = !url;
+      if (url) { download.href = url; hasDownload = true; }
+      else { download.removeAttribute('href'); }
+    });
+    document.querySelector('#detail-unavailable').hidden = hasDownload;
+    document.querySelector('.detail-note').hidden = !hasDownload;
     detailDialog.showModal();
     detailDialog.scrollTop = 0;
   }
@@ -164,7 +174,10 @@
     bottom.className = 'skin-bottom';
     const platform = document.createElement('span');
     platform.className = 'platform';
-    platform.textContent = 'Android';
+    platform.textContent = [
+      safeLink(mod.link_android) && 'Android',
+      safeLink(mod.link_ios) && 'iOS'
+    ].filter(Boolean).join(' / ') || 'Chưa có link';
     bottom.append(platform);
 
     const details = document.createElement('button');
